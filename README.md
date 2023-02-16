@@ -7,6 +7,9 @@ It's filled with bad code, but now that it is public, I'll probably improve it o
 
 ![logger example](https://cdn.upload.systems/uploads/26K4Jvvo.png)
 
+## Installation
+You can install charlogger with `pip install charlogger`.
+
 ## How to use
 
 ### Simple example
