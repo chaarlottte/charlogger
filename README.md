@@ -5,6 +5,8 @@ I've been using this myself for a while, and I thought that I may as well releas
 
 It's filled with bad code, but now that it is public, I'll probably improve it over time.
 
+![logger example](https://cdn.upload.systems/uploads/26K4Jvvo.png)
+
 ## How to use
 
 ### Simple example
