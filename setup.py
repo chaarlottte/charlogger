@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="charlogger",
-    version="1.2",
+    version="1.2.1",
     description="A logging library for Python.",
     url="https://github.com/chaarlottte/charlogger",
     author="chaarlottte",

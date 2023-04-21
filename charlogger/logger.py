@@ -109,15 +109,15 @@ class Logger():
 
         if default_prefix is not None:
             if "<TIME>" in default_prefix:
-                default_prefix = default_prefix.replace("<TIME>", f"{datetime.now().strftime(f'{color}%H{Fore.LIGHTBLACK_EX}:{color}%M{Fore.LIGHTBLACK_EX}:{color}%S')}")
+                default_prefix = default_prefix.replace("<TIME>", f"{datetime.now().strftime(f'{color}%H{Fore.RESET}:{color}%M{Fore.RESET}:{color}%S')}")
             
             if "|" in default_prefix:
-                default_prefix = default_prefix.replace("|", f"{Fore.LIGHTBLACK_EX}|{color}")
+                default_prefix = default_prefix.replace("|", f"{Fore.RESET}|{color}")
 
-            pr1 = pr1 + f"{color}{default_prefix}{Fore.LIGHTBLACK_EX} | "
+            pr1 = pr1 + f"{color}{default_prefix}{Fore.RESET} | "
 
            
-        pr2 = f"{Fore.LIGHTBLACK_EX}({color}{data}{Fore.LIGHTBLACK_EX})"
+        pr2 = f"{Fore.RESET}({color}{data}{Fore.RESET})"
 
         full_prefix = f"{pr1}{pr2}"
 
@@ -125,6 +125,6 @@ class Logger():
             full_prefix = full_prefix + f" {color}{title}"
 
         if not color_text: 
-            full_prefix = full_prefix + f"{Fore.LIGHTBLACK_EX}"
+            full_prefix = full_prefix + f"{Fore.RESET}"
         
         return full_prefix
