@@ -27,10 +27,10 @@ import charlogger
 # All parameters are optional.
 logger = charlogger.Logger(
     debug=True, # Whether to enable the output of debug logs
-    defaultPrefix="your prefix",
-    colorText=False, # Whether to have the info text be colored
-    logFile=open("log.txt", "a"), # The file to put logs in
-    indentLevel=8, # The indentation of the text when output.
+    default_prefix="your prefix",
+    color_text=False, # Whether to have the info text be colored
+    log_file_patj=open("log.txt", "a"), # The file to put logs in
+    indent_level=8, # The indentation of the text when output.
     centered=True # Whether to center text in the console.
 )
 
@@ -43,8 +43,8 @@ import charlogger
 
 logger = charlogger.Logger(
     debug=True,
-    defaultPrefix="<TIME> WORKER-001",
-    colorText=True
+    default_prefix="<TIME> | WORKER-001",
+    color_text=True
 )
 logger.info("What a great logging library!")
 ```
@@ -52,7 +52,7 @@ logger.info("What a great logging library!")
 ## More in-depth documentation
 
 ### `defaultPrefix`
-When initializing a Logger, you have the option of `defaultPrefix`.
+When initializing a Logger, you have the option of `default_prefix`.
 
 For now, if you add `"<TIME>"` anywhere in that string, it will replace it with the time of the logging.
 

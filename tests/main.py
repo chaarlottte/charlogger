@@ -2,10 +2,10 @@ import charlogger
 
 logger = charlogger.Logger(
     debug=True,
-    defaultPrefix="<TIME> WORKER-001",
-    colorText=True,
-    # logFile=open("log.txt", "a")
-    # indentLevel=8,
+    default_prefix="<TIME> | WORKER-001",
+    color_text=False,
+    # log_file_path=open("log.txt", "a")
+    # indent_level=8,
     # centered=True
 )
 

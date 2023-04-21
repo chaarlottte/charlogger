@@ -8,20 +8,20 @@ class Logger():
     def __init__(
                 self, 
                 debug: bool = False, 
-                defaultPrefix: str = None, 
-                colorText: bool = False,
-                indentLevel: int = 0,
+                default_prefix: str = None, 
+                color_text: bool = False,
+                indent_level: int = 0,
                 centered: bool = False,
                 stream: TextIO = sys.stdout,
-                logFile: TextIO = None
+                log_file_path: TextIO = None
             ) -> None:
-        self.debugMode = debug
-        self.defaultPrefix = defaultPrefix
-        self.colorText = colorText
-        self.indentLevel = indentLevel
+        self.debug_mode = debug
+        self.default_prefix = default_prefix
+        self.color_text = color_text
+        self.indent_level = indent_level
         self.centered = centered
         self.stream = stream
-        self.logFile = logFile
+        self.log_file_path = log_file_path
         pass
 
     def info(self, data: str, title: str = None) -> None:
@@ -37,7 +37,7 @@ class Logger():
         self.output(f"{prefix} {data} {Fore.RESET}")
 
     def debug(self, data: str, title: str = None) -> None:
-        if self.debugMode:
+        if self.debug_mode:
             prefix = self.prefix("~", Fore.LIGHTMAGENTA_EX, title)
             self.output(f"{prefix} {data} {Fore.RESET}")
 
@@ -74,7 +74,7 @@ class Logger():
             self.stream.flush()
 
         # Please never look at this code
-        if self.logFile is not None:
+        if self.log_file_path is not None:
             toRemove = []
             for x in AnsiFore.__dict__:
                 toRemove.append(AnsiFore.__dict__[x])
@@ -83,45 +83,48 @@ class Logger():
                 s = s.replace(f"[{x}m", "")
 
             try:
-                self.logFile.write(f"{s}\n")
-                self.logFile.flush()
+                self.log_file_path.write(f"{s}\n")
+                self.log_file_path.flush()
             except UnicodeEncodeError as e:
-                self.logFile.write(f"{s[:e.start] + ' ' + s[e.end:]}\n")
-                self.logFile.flush()
+                self.log_file_path.write(f"{s[:e.start] + ' ' + s[e.end:]}\n")
+                self.log_file_path.flush()
 
     def prefix(self, data: str, color: Fore, title: str = None) -> str:
         s = Logger._prefix(
                 data=data,
                 color=color,
                 title=title,
-                defaultPrefix=self.defaultPrefix,
-                colorText=self.colorText,
+                default_prefix=self.default_prefix,
+                color_text=self.color_text,
                 centered=self.centered,
-                indentLevel=self.indentLevel
+                indent_level=self.indent_level
             )
         return s
 
-    def _prefix(data: str, color: Fore, title: str = None, defaultPrefix: str = None, colorText: bool = False, centered: bool = False, indentLevel: int = 0) -> str:
+    def _prefix(data: str, color: Fore, title: str = None, default_prefix: str = None, color_text: bool = False, centered: bool = False, indent_level: int = 0) -> str:
         pr1 = ""
         if not centered: 
-            for _ in range(indentLevel): 
+            for _ in range(indent_level): 
                 pr1 = pr1 + " "
 
-        if defaultPrefix is not None:
-            if "<TIME>" in defaultPrefix:
-                defaultPrefix = defaultPrefix.replace("<TIME>", f"{datetime.now().strftime(f'{color}%H{Fore.WHITE}:{color}%M{Fore.WHITE}:{color}%S')}{Fore.WHITE} |{color}")
-                
-            pr1 = pr1 + f"{color}{defaultPrefix}{Fore.RESET} | "
+        if default_prefix is not None:
+            if "<TIME>" in default_prefix:
+                default_prefix = default_prefix.replace("<TIME>", f"{datetime.now().strftime(f'{color}%H{Fore.LIGHTBLACK_EX}:{color}%M{Fore.LIGHTBLACK_EX}:{color}%S')}")
+            
+            if "|" in default_prefix:
+                default_prefix = default_prefix.replace("|", f"{Fore.LIGHTBLACK_EX}|{color}")
+
+            pr1 = pr1 + f"{color}{default_prefix}{Fore.LIGHTBLACK_EX} | "
 
            
-        pr2 = f"{color}{data} >"
+        pr2 = f"{Fore.LIGHTBLACK_EX}({color}{data}{Fore.LIGHTBLACK_EX})"
 
-        fullPrefix = f"{pr1}{pr2}"
+        full_prefix = f"{pr1}{pr2}"
 
         if title is not None:
-            fullPrefix = fullPrefix + f" {Fore.WHITE}[{color}{title}{Fore.WHITE}]{color}"
+            full_prefix = full_prefix + f" {color}{title}"
 
-        if not colorText: 
-            fullPrefix = fullPrefix + f"{Fore.RESET}"
+        if not color_text: 
+            full_prefix = full_prefix + f"{Fore.LIGHTBLACK_EX}"
         
-        return fullPrefix
+        return full_prefix
